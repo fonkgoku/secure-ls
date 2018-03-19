@@ -35,7 +35,7 @@ export default class SecureLS {
       constants.EncrytionTypes.BASE64;
     this.config.encryptionSecret = config.encryptionSecret;
 
-    this.ls = localStorage;
+    this.ls = sessionStorage;
     this.init();
   };
 
@@ -125,7 +125,7 @@ export default class SecureLS {
       return jsonData;
     }
 
-    data = this.getDataFromLocalStorage(key);
+    data = this.getDataFromSessionStorage(key);
 
     if (!data) {
       return jsonData;
@@ -165,7 +165,7 @@ export default class SecureLS {
     return jsonData;
   };
 
-  getDataFromLocalStorage(key) {
+  getDataFromSessionStorage(key) {
     return this.ls.getItem(key, true);
   };
 
@@ -194,11 +194,11 @@ export default class SecureLS {
     }
 
     dataToStore = this.processData(data);
-    // Store the data to localStorage
-    this.setDataToLocalStorage(key, dataToStore);
+    // Store the data to sessionStorage
+    this.setDataToSessionStorage(key, dataToStore);
   };
 
-  setDataToLocalStorage(key, data) {
+  setDataToSessionStorage(key, data) {
     this.ls.setItem(key, data);
   };
 
@@ -288,8 +288,8 @@ export default class SecureLS {
       keys: this.utils.allKeys
     }, true);
 
-    // Store the data to localStorage
-    this.setDataToLocalStorage(this.utils.metaKey, dataToStore);
+    // Store the data to sessionStorage
+    this.setDataToSessionStorage(this.utils.metaKey, dataToStore);
   };
 
   getMetaData() {
