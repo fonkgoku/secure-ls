@@ -113,7 +113,7 @@ export default class SecureLS {
     }
   }
 
-  get(key, isAllKeysData) {
+  getItem(key, isAllKeysData) {
     let decodedData = '',
       jsonData = '',
       deCompressedData,
@@ -175,7 +175,7 @@ export default class SecureLS {
     return this.utils.extractKeyNames(data) || [];
   };
 
-  set(key, data) {
+  setItem(key, data) {
     let dataToStore = '';
 
     if (!this.utils.is(key)) {

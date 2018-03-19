@@ -5,8 +5,8 @@ ae = rc4_c.RC4.encrypt(JSON.stringify(data), 's3cr3t@123');
 bde = rc4_c.RC4.decrypt(ae.toString(), 's3cr3t@123');
 de = bde.toString(rc4_c.enc._Utf8);
 
-rc4_c.set(key, data);
+rc4_c.setItem(key, data);
 console.log('RC4 Compressed');
 console.log(localStorage.getItem(key));
-console.log(rc4_c.get(key));
+console.log(rc4_c.getItem(key));
 console.log('____________________________________')
