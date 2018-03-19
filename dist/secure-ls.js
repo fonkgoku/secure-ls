@@ -400,7 +400,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getMetaData',
 	    value: function getMetaData() {
-	      return this.get(this.utils.metaKey, true);
+	      return this.getItem(this.utils.metaKey, true);
 	    }
 	  }]);
 	

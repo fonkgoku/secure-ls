@@ -293,7 +293,7 @@ export default class SecureLS {
   };
 
   getMetaData() {
-    return this.get(this.utils.metaKey, true);
+    return this.getItem(this.utils.metaKey, true);
   };
 
 };
