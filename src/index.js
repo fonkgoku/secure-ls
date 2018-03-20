@@ -9,10 +9,10 @@ import DES from 'crypto-js/tripledes';
 import RABBIT from 'crypto-js/rabbit';
 import RC4 from 'crypto-js/rc4';
 
-export default class SecureLS {
+export default class SecureSS {
   constructor(config) {
     config = config || {};
-    this._name = 'secure-ls';
+    this._name = 'secure-ss';
     this.utils = utils;
     this.constants = constants;
     this.Base64 = Base64;
@@ -35,7 +35,7 @@ export default class SecureLS {
       constants.EncrytionTypes.BASE64;
     this.config.encryptionSecret = config.encryptionSecret;
 
-    this.ls = sessionStorage;
+    this.ss = sessionStorage;
     this.init();
   };
 
@@ -166,7 +166,7 @@ export default class SecureLS {
   };
 
   getDataFromSessionStorage(key) {
-    return this.ls.getItem(key, true);
+    return this.ss.getItem(key, true);
   };
 
   getAllKeys() {
@@ -199,7 +199,7 @@ export default class SecureLS {
   };
 
   setDataToSessionStorage(key, data) {
-    this.ls.setItem(key, data);
+    this.ss.setItem(key, data);
   };
 
   remove(key) {
@@ -217,7 +217,7 @@ export default class SecureLS {
       this.utils.removeFromKeysList(key);
       this.setMetaData();
     }
-    this.ls.removeItem(key);
+    this.ss.removeItem(key);
   };
 
   removeAll() {
@@ -225,15 +225,15 @@ export default class SecureLS {
 
     keys = this.getAllKeys();
     for (i = 0; i < keys.length; i++) {
-      this.ls.removeItem(keys[i]);
+      this.ss.removeItem(keys[i]);
     }
-    this.ls.removeItem(this.utils.metaKey);
+    this.ss.removeItem(this.utils.metaKey);
 
     this.resetAllKeys();
   };
 
   clear() {
-    this.ls.clear();
+    this.ss.clear();
     this.resetAllKeys();
   };
 

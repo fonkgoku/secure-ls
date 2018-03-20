@@ -102,12 +102,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var SecureLS = function () {
-	  function SecureLS(config) {
-	    _classCallCheck(this, SecureLS);
+	var SecureSS = function () {
+	  function SecureSS(config) {
+	    _classCallCheck(this, SecureSS);
 	
 	    config = config || {};
-	    this._name = 'secure-ls';
+	    this._name = 'secure-ss';
 	    this.utils = _utils2.default;
 	    this.constants = _constants2.default;
 	    this.Base64 = _Base2.default;
@@ -126,11 +126,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.config.encodingType = typeof config.encodingType !== 'undefined' || config.encodingType === '' ? config.encodingType.toLowerCase() : _constants2.default.EncrytionTypes.BASE64;
 	    this.config.encryptionSecret = config.encryptionSecret;
 	
-	    this.ls = sessionStorage;
+	    this.ss = sessionStorage;
 	    this.init();
 	  }
 	
-	  _createClass(SecureLS, [{
+	  _createClass(SecureSS, [{
 	    key: 'init',
 	    value: function init() {
 	      var metaData = this.getMetaData() || {};
@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'getDataFromSessionStorage',
 	    value: function getDataFromSessionStorage(key) {
-	      return this.ls.getItem(key, true);
+	      return this.ss.getItem(key, true);
 	    }
 	  }, {
 	    key: 'getAllKeys',
@@ -296,7 +296,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'setDataToSessionStorage',
 	    value: function setDataToSessionStorage(key, data) {
-	      this.ls.setItem(key, data);
+	      this.ss.setItem(key, data);
 	    }
 	  }, {
 	    key: 'remove',
@@ -315,7 +315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this.utils.removeFromKeysList(key);
 	        this.setMetaData();
 	      }
-	      this.ls.removeItem(key);
+	      this.ss.removeItem(key);
 	    }
 	  }, {
 	    key: 'removeAll',
@@ -325,16 +325,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      keys = this.getAllKeys();
 	      for (i = 0; i < keys.length; i++) {
-	        this.ls.removeItem(keys[i]);
+	        this.ss.removeItem(keys[i]);
 	      }
-	      this.ls.removeItem(this.utils.metaKey);
+	      this.ss.removeItem(this.utils.metaKey);
 	
 	      this.resetAllKeys();
 	    }
 	  }, {
 	    key: 'clear',
 	    value: function clear() {
-	      this.ls.clear();
+	      this.ss.clear();
 	      this.resetAllKeys();
 	    }
 	  }, {
@@ -404,10 +404,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }]);
 	
-	  return SecureLS;
+	  return SecureSS;
 	}();
 	
-	exports.default = SecureLS;
+	exports.default = SecureSS;
 	;
 	module.exports = exports['default'];
 
@@ -532,8 +532,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var WarningTypes = {};
 	
-	WarningTypes[WarningEnum.KEY_NOT_PROVIDED] = 'Secure LS: Key not provided. Aborting operation!';
-	WarningTypes[WarningEnum.META_KEY_REMOVE] = 'Secure LS: Meta key can not be removed\nunless all keys created by Secure LS are removed!';
+	WarningTypes[WarningEnum.KEY_NOT_PROVIDED] = 'Secure SS: Key not provided. Aborting operation!';
+	WarningTypes[WarningEnum.META_KEY_REMOVE] = 'Secure SS: Meta key can not be removed\nunless all keys created by Secure SS are removed!';
 	WarningTypes[WarningEnum.DEFAULT_TEXT] = 'Unexpected output';
 	
 	var constants = {
