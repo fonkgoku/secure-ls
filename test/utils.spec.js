@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
-import SecureLS from '../dist/secure-ls.js';
+import SecureSS from '../dist/secure-ss.js';
 
 chai.expect();
 chai.use(sinonChai);
@@ -12,7 +12,7 @@ let lib;
 describe('Utils tests', () => {
     beforeEach(() => {
       sinon.spy(console, 'warn');
-      lib = new SecureLS();
+      lib = new SecureSS();
     });
 
     afterEach(() => {
@@ -23,7 +23,7 @@ describe('Utils tests', () => {
     describe('variables initialization', () => {
       it('should verify meta-key', () => {
         expect(lib.utils.metaKey).to.be.a('string');
-        expect(lib.utils.metaKey).to.equal('_secure__ls__metadata');
+        expect(lib.utils.metaKey).to.equal('_secure__ss__metadata');
       });
       it('should verify encryptionSecret', () => {
         expect(lib.utils.encryptionSecret).to.be.a('string');
@@ -68,7 +68,7 @@ describe('Utils tests', () => {
       it('warn with warning msg as per reason provided', () => {
         lib.utils.warn('keyNotProvided');
         expect(console.warn).to.be.called;
-        expect(console.warn.calledWith('Secure LS: Key not provided. Aborting operation!')).to.be.ok;
+        expect(console.warn.calledWith('Secure SS: Key not provided. Aborting operation!')).to.be.ok;
       });
 
       describe('method: generateSecretKey ->', () => {

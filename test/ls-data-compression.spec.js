@@ -1,5 +1,5 @@
 import chai from 'chai';
-import SecureLS from '../dist/secure-ls.js';
+import SecureSS from '../dist/secure-ss.js';
 import mockLS from './mock/ls';
 
 const expect = chai.expect;
@@ -12,8 +12,8 @@ describe('Data Compression Tests ->', () => {
 
   beforeEach(() => {
     mockLS.storage = {};
-    lib = new SecureLS();
-    lib.ls = mockStorage;
+    lib = new SecureSS();
+    lib.ss = mockStorage;
   });
 
   afterEach(() => {
@@ -26,9 +26,9 @@ describe('Data Compression Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => WzEsMiwzXQ== i.e. Base64 encoded
       valueStored = lib.LZString.compress(lib.Base64.encode(JSON.stringify(data)));
@@ -48,9 +48,9 @@ describe('Data Compression Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: '', isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: '', isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "[1, 2, 3]"
       valueStored = JSON.stringify(data);
@@ -70,7 +70,7 @@ describe('Data Compression Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib.set(key, data);
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => 㪂ೠ눉惮 脔ொꀀ
       valueStored = lib.LZString.compress(lib.Base64.encode(JSON.stringify(data)));
@@ -90,7 +90,7 @@ describe('Data Compression Tests ->', () => {
       };
       let key = 'key-1';
 
-      lib.set(key, data);
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => ⦄ࣀ옄쁪‑腬ؠᜁ栙䂒ͥ쀻äʹ좀鑠ፀ൜Ұـ愰ʴ䘁堀斠ᵄ뽜鰃�ଠ՚䰀ι〈怜䀧ፚ저�舀郰Y馮ހ㎱्蠀
       valueStored = lib.LZString.compress(lib.Base64.encode(JSON.stringify(data)));

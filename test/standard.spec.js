@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
-import SecureLS from '../dist/secure-ls.js';
+import SecureSS from '../dist/secure-ss.js';
 
 chai.expect();
 chai.use(sinonChai);
@@ -9,10 +9,10 @@ chai.use(sinonChai);
 const expect = chai.expect;
 let lib;
 
-describe('Standard SecureLS API Tests ->', () => {
+describe('Standard SecureSS API Tests ->', () => {
   beforeEach(() => {
     sinon.spy(console, 'warn');
-    lib = new SecureLS();
+    lib = new SecureSS();
   });
 
   afterEach(() => {
@@ -20,18 +20,18 @@ describe('Standard SecureLS API Tests ->', () => {
     lib.removeAll();
   });
 
-  describe('secure-ls: set method', () => {
+  describe('secure-ss: set method', () => {
     it('should warn if no key is provided', () => {
       expect(console.warn).to.not.be.called;
-      lib.set();
+      lib.setItem();
       expect(console.warn).to.be.called;
     });
 
     it('should add key to list of stored keys', () => {
       let spy = sinon.spy(lib, 'processData');
-      let lsSpy = sinon.spy(lib, 'setDataToLocalStorage');
+      let lsSpy = sinon.spy(lib, 'setDataToSessionStorage');
 
-      lib.set('test123');
+      lib.setItem('test123');
 
       expect(lib.utils.allKeys).to.exist;
       expect(lib.utils.allKeys).to.be.an('array');
@@ -42,22 +42,22 @@ describe('Standard SecureLS API Tests ->', () => {
     });
   });
 
-  describe('secure-ls: get method', () => {
+  describe('secure-ss: get method', () => {
     it('should warn if no key is provided', () => {
       expect(console.warn).to.not.be.called;
-      lib.get();
+      lib.getItem();
       expect(console.warn).to.be.called;
     });
 
     it('should add key to list of stored keys', () => {
-      let lsSpy = sinon.spy(lib, 'getDataFromLocalStorage');
+      let lsSpy = sinon.spy(lib, 'getDataFromSessionStorage');
 
-      lib.get('test123');
+      lib.getItem('test123');
       expect(lsSpy).to.be.called;
     });
   });
 
-  describe('secure-ls: getAllKeys method', () => {
+  describe('secure-ss: getAllKeys method', () => {
     it('should return [] if nothing set', () => {
       let keys = lib.getAllKeys();
       expect(keys).to.be.an('array');
@@ -68,13 +68,13 @@ describe('Standard SecureLS API Tests ->', () => {
       let keys = lib.getAllKeys();
       expect(keys.length).to.equal(0);
 
-      lib.set('key-1');
+      lib.setItem('key-1');
 
       keys = lib.getAllKeys();
       expect(keys).to.be.an('array');
       expect(keys.length).to.equal(1);
 
-      lib.set('key-2');
+      lib.setItem('key-2');
 
       keys = lib.getAllKeys();
       expect(keys).to.be.an('array');
@@ -82,7 +82,7 @@ describe('Standard SecureLS API Tests ->', () => {
     });
   });
 
-  describe('secure-ls: remove method', function () {
+  describe('secure-ss: remove method', function () {
     it('should warn if no key is provided', () => {
       expect(console.warn).to.not.be.called;
       lib.remove();
@@ -90,21 +90,21 @@ describe('Standard SecureLS API Tests ->', () => {
     });
 
     it('should warn if key is metakey and keys are there', () => {
-      lib.set('key-1');
-      lib.remove('_secure__ls__metadata');
+      lib.setItem('key-1');
+      lib.remove('_secure__ss__metadata');
       expect(console.warn).to.be.called;
       // clear
       lib.removeAll();
     });
 
     it('should not warn if key is metadata and no ther keys present', () => {
-      lib.remove('_secure__ls__metadata');
+      lib.remove('_secure__ss__metadata');
       expect(console.warn).to.not.be.called;
     });
 
     it('should decreament counter', () => {
-      lib.set('key-1', {});
-      lib.set('key-2', []);
+      lib.setItem('key-1', {});
+      lib.setItem('key-2', []);
       expect(lib.utils.allKeys.length).to.equal(2);
 
       lib.remove();
@@ -123,17 +123,17 @@ describe('Standard SecureLS API Tests ->', () => {
 
     it('should update the list of stored keys', () => {
     let spy = sinon.spy(lib, 'setMetaData');
-    lib.set('key-1');
+    lib.setItem('key-1');
       lib.remove('key-1');
       expect(spy).to.be.called;
     });
   });
 
-  describe('secure-ls: removeAll method', function () {
+  describe('secure-ss: removeAll method', function () {
     it('verify allKeys length on removal', () => {
       let spy = sinon.spy(lib, 'getAllKeys');
-      lib.set('key-1', {data: 'data'});
-      lib.set('key-2', [1, 2, 3])
+      lib.setItem('key-1', {data: 'data'});
+      lib.setItem('key-2', [1, 2, 3])
 
       expect(lib.utils.allKeys.length).to.equal(2);
 
@@ -143,10 +143,10 @@ describe('Standard SecureLS API Tests ->', () => {
     });
   });
 
-  describe('secure-ls: clear method', function () {
+  describe('secure-ss: clear method', function () {
     it('verify allKeys length on removal', () => {
-      lib.set('key-1', {data: 'data'});
-      lib.set('key-2', [1, 2, 3])
+      lib.setItem('key-1', {data: 'data'});
+      lib.setItem('key-2', [1, 2, 3])
 
       expect(lib.utils.allKeys.length).to.equal(2);
 

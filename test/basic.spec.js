@@ -1,7 +1,7 @@
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
-import SecureLS from '../dist/secure-ls.js';
+import SecureSS from '../dist/secure-ss.js';
 
 chai.expect();
 chai.use(sinonChai);
@@ -15,19 +15,19 @@ describe('Basic suites ->', () => {
   });
 
   describe('instance creation', () => {
-    lib = new SecureLS();
+    lib = new SecureSS();
 
     it('should check correct instance creation', () => {
-      expect(lib).to.be.instanceof(SecureLS);
+      expect(lib).to.be.instanceof(SecureSS);
     });
     it('should return the name', () => {
-      expect(lib._name).to.be.equal('secure-ls');
+      expect(lib._name).to.be.equal('secure-ss');
     });
 
   });
 
   describe('constructor', () => {
-    lib = new SecureLS();
+    lib = new SecureSS();
 
     it('should be called on instance creation', () => {
       expect(lib._name).to.exist;
@@ -40,7 +40,7 @@ describe('Basic suites ->', () => {
       expect(lib.RABBIT).to.exist;
       expect(lib.RC4).to.exist;
       expect(lib.enc).to.exist;
-      expect(lib.ls).to.exist;
+      expect(lib.ss).to.exist;
       expect(lib.config).to.exist;
       expect(lib.config).to.be.an('object');
       expect(lib.config).to.include.keys('encodingType', 'isCompression');

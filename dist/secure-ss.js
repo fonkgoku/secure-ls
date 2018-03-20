@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("SecureLS", [], factory);
+		define("SecureSS", [], factory);
 	else if(typeof exports === 'object')
-		exports["SecureLS"] = factory();
+		exports["SecureSS"] = factory();
 	else
-		root["SecureLS"] = factory();
+		root["SecureSS"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -432,7 +432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var utils = {
-	  metaKey: '_secure__ls__metadata',
+	  metaKey: '_secure__ss__metadata',
 	  encryptionSecret: '',
 	  secretPhrase: 's3cr3t$#@135^&*246',
 	  allKeys: [],
@@ -5279,4 +5279,4 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-//# sourceMappingURL=secure-ls.js.map
+//# sourceMappingURL=secure-ss.js.map

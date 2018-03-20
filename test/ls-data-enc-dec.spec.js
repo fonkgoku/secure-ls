@@ -1,5 +1,5 @@
 import chai from 'chai';
-import SecureLS from '../dist/secure-ls.js';
+import SecureSS from '../dist/secure-ss.js';
 import mockLS from './mock/ls';
 
 const expect = chai.expect;
@@ -12,8 +12,8 @@ describe('Encryption / Decryption Tests ->', () => {
 
   beforeEach(() => {
     mockLS.storage = {};
-    lib = new SecureLS();
-    lib.ls = mockStorage;
+    lib = new SecureSS();
+    lib.ss = mockStorage;
   });
 
   afterEach(() => {
@@ -26,9 +26,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "WzEsMiwzXQ==" i.e. Base64 encoded
       valueStored = lib.Base64.encode(JSON.stringify(data));
@@ -48,9 +48,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS();
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS();
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "㪂ೠ눉惮 脔ொꀀ" i.e. Base64 encoded
       valueStored = lib.LZString.compress(lib.Base64.encode(JSON.stringify(data)));
@@ -70,9 +70,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'aes', isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'aes', isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "U2FsdGVkX18+oRXqlPpUH+Q0sI26w+8msQo5UhNq6hw=" i.e. AES encrypted
       valueStored = lib.AES.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString();
@@ -96,9 +96,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'aes', isCompression: true});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'aes', isCompression: true});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "⪂恢ೠ☎⁪ڰځ᠁쁺Ÿીꀜ鄈Àኀ퐁᠁肢ϙ㑀娃࠰Ⲁ찠̨ư༠ǟ踈Ÿ耀 " i.e. compressed AES encrypted
       valueStored = lib.LZString.compress(lib.AES.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString());
@@ -123,13 +123,13 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({
+      lib = new SecureSS({
         encodingType: 'aes',
         isCompression: true,
         encryptionSecret: 'mySecretKey123'
       });
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       expect(lib.config.encryptionSecret).to.equal('mySecretKey123');
       expect(lib.utils.encryptionSecret).to.equal('mySecretKey123');
@@ -158,9 +158,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'DES', isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'DES', isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "U2FsdGVkX19FJjcyo+8PjIGbhKjZKxEt" i.e. DES encrypted
       valueStored = lib.DES.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString();
@@ -184,13 +184,13 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({
+      lib = new SecureSS({
         encodingType: 'DES',
         isCompression: false,
         encryptionSecret: 'mySecretKey123'
       });
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       expect(lib.config.encryptionSecret).to.equal('mySecretKey123');
       expect(lib.utils.encryptionSecret).to.equal('mySecretKey123');
@@ -217,9 +217,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'DES', isCompression: true});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'DES', isCompression: true});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "⪂恢ೠ☎⁪ڰځ᠉쁡㠓䌄倈쁺ᆰୀ䬐ʐɀ挀喠儴ݲ " i.e. compressed DES encrypted
       valueStored = lib.LZString.compress(lib.DES.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString());
@@ -244,9 +244,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'RABBIT', isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'RABBIT', isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "U2FsdGVkX1+hs6euMenWXefB7TBJwPM=" i.e. RABBIT encrypted
       valueStored = lib.RABBIT.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString();
@@ -270,9 +270,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'RABBIT', isCompression: true});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'RABBIT', isCompression: true});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "⪂恢ೠ☎⁪ڰځ᠉쁩ㆠ倖쀡´ِᅀ༁搄㇀ิ欬臬ע" i.e. compressed RABBIT encrypted
       valueStored = lib.LZString.compress(lib.RABBIT.encrypt(JSON.stringify(data),
@@ -299,13 +299,13 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({
+      lib = new SecureSS({
         encodingType: 'RABBIT',
         isCompression: true,
         encryptionSecret: ''
       });
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       expect(lib.config.encryptionSecret).to.not.equal('mySecretKey123');
       expect(lib.utils.encryptionSecret).to.not.equal('mySecretKey123');
@@ -338,9 +338,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'RC4', isCompression: false});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'RC4', isCompression: false});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "U2FsdGVkX1+kG77vLYAGhcPRdgH5GsQ=" i.e. RC4 encrypted
       valueStored = lib.RC4.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString();
@@ -364,9 +364,9 @@ describe('Encryption / Decryption Tests ->', () => {
       let data = [1, 2, 3];
       let key = 'key-1';
 
-      lib = new SecureLS({encodingType: 'RC4', isCompression: true});
-      lib.ls = mockStorage;
-      lib.set(key, data);
+      lib = new SecureSS({encodingType: 'RC4', isCompression: true});
+      lib.ss = mockStorage;
+      lib.setItem(key, data);
 
       // corresponding to [1, 2, 3] => "⪂恢ೠ☎⁪ڰځ᠍䁅̘ࡀ⡀⢀丈٠ⶀ㙸໠ވɘའ̀눂 " i.e. compressed RC4 encrypted
       valueStored = lib.LZString.compress(lib.RC4.encrypt(JSON.stringify(data), lib.utils.encryptionSecret).toString());

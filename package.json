@@ -1,8 +1,8 @@
 {
-  "name": "secure-ls",
-  "version": "1.1.0",
+  "name": "secure-ss",
+  "version": "0.1.0",
   "description": "Secure localStorage data with high level of encryption and data compression",
-  "main": "dist/secure-ls.js",
+  "main": "dist/secure-ss.js",
   "scripts": {
     "build": "webpack --mode=build",
     "build-dev": "webpack --mode=dev",

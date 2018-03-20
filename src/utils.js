@@ -3,7 +3,7 @@ import CryptoJSWordArray from './WordArray';
 import PBKDF2 from 'crypto-js/pbkdf2';
 
 let utils = {
-  metaKey: '_secure__ls__metadata',
+  metaKey: '_secure__ss__metadata',
   encryptionSecret: '',
   secretPhrase: 's3cr3t$#@135^&*246',
   allKeys: [],
