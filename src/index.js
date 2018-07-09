@@ -35,7 +35,7 @@ export default class SecureLS {
       constants.EncrytionTypes.BASE64;
     this.config.encryptionSecret = config.encryptionSecret;
 
-    this.ls = this.config.storageType || localStorage;
+    this.ls = config.storageType || localStorage;
     this.init();
   };
 
@@ -296,8 +296,7 @@ export default class SecureLS {
     return this.get(this.utils.metaKey, true);
   };
 
-  // polyfill
-
+  // enable compatiblity with the sessionStorage/localStorage api
   getItem(key, isAllKeysData) {
     return this.get(key, isAllKeysData);
   }
